@@ -1,0 +1,20 @@
+﻿@model GitHub_Users.Models.UserSearch
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>GitHub User Search</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm("SearchUsername", "Home", FormMethod.Post))
+        {
+            <h2>Search GitHub Repo</h2>
+            @Html.TextBoxFor(m => m.Username)
+            <input type="submit" value="Search" />
+        }
+
+    </div>
+</div>

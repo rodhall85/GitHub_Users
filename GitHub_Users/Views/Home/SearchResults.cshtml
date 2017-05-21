@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<div id="searchResults">
+    @ViewBag.Username
+    @ViewBag.Location
+    @ViewBag.Avatar <!--this is an image-->
+    
+    
+    <!--section for the top 5 repos-->
+    <ul>
+        @for (int i = 0; i < ViewBag.Repos.Count(); i++)
+        {
+            <li>@ViewBag.Repo</li>
+        }
+    </ul>
+</div>
