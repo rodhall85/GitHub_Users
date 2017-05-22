@@ -6,17 +6,30 @@
 <h3>@ViewBag.Message</h3>
 
 <div id="searchResults">
-    @Html.LabelFor(m=> m.Login)
-    @Html.LabelFor(m => m.Location)
+    
+    @Html.Label(Model.Login)
+    @Html.Label(Model.Repos_Url)
 
-    <img src="@Url.Content(Model.Avatar_Url)" alt="Image" />
-    
-    
-    <!--section for the top 5 repos-->
-    @*<ul>
-        @for (int i = 0; i < ViewBag.Repos.Count(); i++)
-        {
-            <li>@ViewBag.Repo</li>
-        }
-    </ul>*@
+    <img style="width:100px; height:100px;" src="@Url.Content(Model.Avatar_Url)" alt="Image" />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Repo Name</th>
+                <th>Url</th>
+                <th>Stargazer Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var repo in Model.StarredRepos)
+            {
+                <tr>
+                    <td>@repo.Name</td>
+                    <td><a>@repo.Html_Url</a></td>
+                    <td><div>@repo.Stargazers_Count</div></td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

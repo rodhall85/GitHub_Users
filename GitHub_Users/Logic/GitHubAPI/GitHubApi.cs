@@ -1,4 +1,8 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using GitHub_Users.Entities;
 using GitHub_Users.Logic.Config;
 using GitHub_Users.Models;
 
@@ -6,13 +10,18 @@ namespace GitHub_Users.Logic.GitHubAPI
 {
     public class GitHubApi : IGitHubApi
     {
-        private IJsonConvertor JsonConvertor;
-        private IConfigRepository ConfigRepository;
-        
-        public GitHubApi(IJsonConvertor jsonConvetor, IConfigRepository configRepository)
+        private IJsonConvertor jsonConvertor;
+        private IConfigRepository configRepository;
+        private ICallGitHubApi callGitHubApi;
+
+        public GitHubApi(
+            IJsonConvertor jsonConvetor, 
+            IConfigRepository configRepository, 
+            ICallGitHubApi callGitHubApi)
         {
-            JsonConvertor = jsonConvetor;
-            ConfigRepository = configRepository;
+            this.jsonConvertor = jsonConvetor;
+            this.configRepository = configRepository;
+            this.callGitHubApi = callGitHubApi;
         }
 
 		/// <summary>
@@ -24,29 +33,20 @@ namespace GitHub_Users.Logic.GitHubAPI
         {
             if (string.IsNullOrEmpty(username))
             {
-                return null;
+                throw new ArgumentException("username has not been provided");
             }
 
-            var url = ConfigRepository.GetConfig<string>("GitHubApiUsersUrl");
-            var json = CallGitHubWebApi($"{url}{username.ToLowerInvariant()}");
+            var url = this.configRepository.GetConfig<string>("GitHubApiUsersUrl");
+            var json = this.callGitHubApi.FetchJson($"{url}{username.ToLowerInvariant()}");
             
-			var returnValue = JsonConvertor.ConvertToModel<SearchResults>(json);
+			var searchResults = this.jsonConvertor.ConvertToModel<SearchResults>(json);
 
-			//TODO:- populate the starred repos
-	        return returnValue;
-        }
+            var usersReposJson = this.callGitHubApi.FetchJson($"{searchResults.Repos_Url}");
+            searchResults.StarredRepos = this.jsonConvertor.ConvertToModel<List<Repo>>(usersReposJson)
+                                                            .OrderByDescending(x => x.Stargazers_Count)
+                                                            .Take(5);
 
-        private string CallGitHubWebApi(string url)
-        {
-            var json = string.Empty;
-
-            using (var webClient = new WebClient())
-            {
-                webClient.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-                json = webClient.DownloadString(url);
-            }
-
-            return json;
+            return searchResults;
         }
     }
 }

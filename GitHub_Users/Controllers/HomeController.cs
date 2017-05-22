@@ -22,11 +22,13 @@ namespace GitHub_Users.Controllers
         /// Searches username returning SearchResults Model to the view
         /// </summary>
         /// <returns></returns>
+        [HandleError()]
         public ActionResult SearchUsername(UserSearch userSearch)
         {
 			return RedirectToAction("SearchResults", userSearch);
 		}
 
+        [HandleError()]
         public ActionResult SearchResults(UserSearch userSearch)
         {
 			var searchResult =  this.gitHubApi.GetUserDetails(userSearch.Username);

@@ -146,11 +146,14 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Entities\Repo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logic\Config\ConfigRepository.cs" />
     <Compile Include="Logic\Config\IConfigRepository.cs" />
+    <Compile Include="Logic\GitHubAPI\CallGitHubApi.cs" />
+    <Compile Include="Logic\GitHubAPI\ICallGitHubApi.cs" />
     <Compile Include="Logic\GitHubAPI\GitHubApi.cs" />
     <Compile Include="Logic\GitHubAPI\IGitHubApi.cs" />
     <Compile Include="Logic\Json\IJsonConvertor.cs" />

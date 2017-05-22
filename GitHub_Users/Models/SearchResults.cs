@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GitHub_Users.Entities;
 
 namespace GitHub_Users.Models
 {
@@ -10,6 +11,8 @@ namespace GitHub_Users.Models
 
         public string Avatar_Url { get; set; }
 
-        public IList<string> StarredRepos { get; set; }
+        public string Repos_Url { get; set; }
+
+        public IEnumerable<Repo> StarredRepos { get; set; }
     }
 }

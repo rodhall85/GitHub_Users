@@ -38,6 +38,7 @@ namespace GitHub_Users.App_Start
             container.RegisterType<IConfigRepository, ConfigRepository>();
             container.RegisterType<IJsonConvertor, JsonConvertor>();
             container.RegisterType<IGitHubApi, GitHubApi>();
+            container.RegisterType<ICallGitHubApi, CallGitHubApi>();
         }
     }
 }
