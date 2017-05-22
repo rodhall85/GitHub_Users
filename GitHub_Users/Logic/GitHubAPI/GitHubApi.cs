@@ -15,7 +15,12 @@ namespace GitHub_Users.Logic.GitHubAPI
             ConfigRepository = configRepository;
         }
 
-        public SearchResults GetUserDetails(string username)
+		/// <summary>
+		/// Gets the user details from the GitHubApi
+		/// </summary>
+		/// <param name="username">The username.</param>
+		/// <returns></returns>
+		public SearchResults GetUserDetails(string username)
         {
             if (string.IsNullOrEmpty(username))
             {
@@ -27,7 +32,7 @@ namespace GitHub_Users.Logic.GitHubAPI
             
 			var returnValue = JsonConvertor.ConvertToModel<SearchResults>(json);
 
-			//populate the starred repos
+			//TODO:- populate the starred repos
 	        return returnValue;
         }
 

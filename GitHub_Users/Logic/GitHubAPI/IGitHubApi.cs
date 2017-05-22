@@ -4,6 +4,11 @@ namespace GitHub_Users.Logic.GitHubAPI
 {
     public interface IGitHubApi
     {
-        SearchResults GetUserDetails(string username);
+		/// <summary>
+		/// Gets the user details from the GitHubApi
+		/// </summary>
+		/// <param name="username">The username.</param>
+		/// <returns></returns>
+		SearchResults GetUserDetails(string username);
     }
 }

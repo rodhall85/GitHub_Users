@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 
 namespace GitHub_Users.Logic.Config
 {
@@ -6,8 +7,7 @@ namespace GitHub_Users.Logic.Config
     {
         public T GetConfig<T>(string configName)
         {
-            //TODO:- get the config from the web.config
-            var configValue = "https://api.github.com/users/";
+	        var configValue = ConfigurationManager.AppSettings.GetValues(configName);
 
             return (T)Convert.ChangeType(configValue, typeof(T));
         }
