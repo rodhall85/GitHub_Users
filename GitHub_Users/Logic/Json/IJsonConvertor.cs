@@ -4,6 +4,6 @@ namespace GitHub_Users.Logic
 {
     public interface IJsonConvertor
     {
-        TModel ConvertToModel<TModel>(Task<string> jsonString);
+        TModel ConvertToModel<TModel>(string jsonString);
     }
 }

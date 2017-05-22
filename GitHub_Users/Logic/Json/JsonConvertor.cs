@@ -1,5 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace GitHub_Users.Logic
 {
@@ -8,11 +8,9 @@ namespace GitHub_Users.Logic
     /// </summary>
     public class JsonConvertor : IJsonConvertor
     {
-        public TModel ConvertToModel<TModel>(Task<string> jsonString)
+        public TModel ConvertToModel<TModel>(string jsonString)
         {
-            //convert the jsonString into the model that has been passed in
-
-            throw new NotImplementedException();
+            return JsonConvert.DeserializeObject<TModel>(jsonString);
         }
     }
 }

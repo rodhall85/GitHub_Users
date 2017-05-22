@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using GitHub_Users.Logic.GitHubAPI;
+using GitHub_Users.Models;
 
 namespace GitHub_Users.Controllers
 {
@@ -21,17 +22,16 @@ namespace GitHub_Users.Controllers
         /// Searches username returning SearchResults Model to the view
         /// </summary>
         /// <returns></returns>
-        public ActionResult SearchUsername(string username)
+        public ActionResult SearchUsername(UserSearch userSearch)
         {
-            this.gitHubApi.GetUserDetails(username);
-            return View();
-        }
+			return RedirectToAction("SearchResults", userSearch);
+		}
 
-        public ActionResult SearchResults()
+        public ActionResult SearchResults(UserSearch userSearch)
         {
-            ViewBag.Message = "Search Results JSON";
+			var searchResult =  this.gitHubApi.GetUserDetails(userSearch.Username);
 
-            return View();
+			return View(searchResult);
         }
     }
 }

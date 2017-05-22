@@ -1,20 +1,22 @@
-﻿@{
+﻿@model GitHub_Users.Models.SearchResults
+@{
     ViewBag.Title = "Contact";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
 <div id="searchResults">
-    @ViewBag.Username
-    @ViewBag.Location
-    @ViewBag.Avatar <!--this is an image-->
+    @Html.LabelFor(m=> m.Login)
+    @Html.LabelFor(m => m.Location)
+
+    <img src="@Url.Content(Model.Avatar_Url)" alt="Image" />
     
     
     <!--section for the top 5 repos-->
-    <ul>
+    @*<ul>
         @for (int i = 0; i < ViewBag.Repos.Count(); i++)
         {
             <li>@ViewBag.Repo</li>
         }
-    </ul>
+    </ul>*@
 </div>
