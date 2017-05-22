@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace GitHub_Users.Logic
 {
@@ -7,7 +8,7 @@ namespace GitHub_Users.Logic
     /// </summary>
     public class JsonConvertor : IJsonConvertor
     {
-        public TModel ConvertToModel<TModel>(string jsonString)
+        public TModel ConvertToModel<TModel>(Task<string> jsonString)
         {
             //convert the jsonString into the model that has been passed in
 
