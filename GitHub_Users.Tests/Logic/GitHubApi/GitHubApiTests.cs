@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
+using GitHub_Users.Entities;
 using GitHub_Users.Logic;
 using GitHub_Users.Logic.Config;
 using GitHub_Users.Logic.GitHubAPI;
@@ -33,16 +35,25 @@ namespace GitHub_Users.Tests.Logic.GitHubApi
             {
                 Login = "Barry"
             });
+			jsonConvertorMock.Setup(m => m.ConvertToModel<List<Repo>>(It.IsAny<string>())).Returns(
+				new List<Repo>
+				{
+					new Repo
+					{
+						Stargazers_Count = 0
+					}
+				});
+
             configRepositoryMock.Setup(m => m.GetConfig<string>(It.IsAny<string>())).Returns("url");
             callGitHubApiMock.Setup(m => m.FetchJson(It.IsAny<string>())).Returns("json");
 		}
         
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void GetUserDetails_NoUsername_ReturnsNull()
+        public void GetUserDetails_NoUsername_ThrowsException()
         {
             //act & assert
-            var result = sut.GetUserDetails(null);
+            sut.GetUserDetails(null);
         }
 
         [TestMethod]

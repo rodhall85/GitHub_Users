@@ -10,9 +10,9 @@ namespace GitHub_Users.Logic.GitHubAPI
 {
     public class GitHubApi : IGitHubApi
     {
-        private IJsonConvertor jsonConvertor;
-        private IConfigRepository configRepository;
-        private ICallGitHubApi callGitHubApi;
+        private readonly IJsonConvertor jsonConvertor;
+        private readonly IConfigRepository configRepository;
+        private readonly ICallGitHubApi callGitHubApi;
 
         public GitHubApi(
             IJsonConvertor jsonConvetor, 
